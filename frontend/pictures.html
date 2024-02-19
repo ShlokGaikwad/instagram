@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>pictures</h2>
+    <input type="text" id="quote" placeholder="add quote">
+    <input type="text" id="photo" placeholder="add photo">
+    <input type="text" id="device" placeholder="add device">
+    <input type="number" id="commentCount" placeholder="add commentCount">
+    <button onclick="addPhoto()">submit</button>
+</body>
+<script>
+    const quote=document.getElementById('quote').value;
+    const photo=document.getElementById('photo').value;
+    const device=document.getElementById('device').value;
+    const commentsCount=document.getElementById('commentCount').value;
+
+    async function addPhoto(){
+        try {
+            let obj={quote,photo,device,commentsCount}
+            const res = await fetch('http://localhost:4500/pictures', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(obj)
+            });
+            const data = await res.json();
+            console.log(data);
+        } catch (error) {
+            console.log(error);            
+        }
+    }
+</script>
+</html>

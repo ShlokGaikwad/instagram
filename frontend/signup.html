@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Signup page...</h2>
+    username:<input type="text" placeholder="Enter Your username..." id="username"><br>
+    email:<input type="text" placeholder="Enter Your email..." id="email"><br>
+    password:<input type="text" placeholder="Enter Your password..." id="pass"><br>
+    city:<input type="text" placeholder="Enter Your city..." id="city"><br>
+    age:<input type="text" placeholder="Enter Your age..." id="age"><br>
+    gender:<input type="text" placeholder="Enter Your gender..." id="gender"><br>
+    <button onclick="signup()">signup</button><br>
+</body>
+<script>
+    async function signup() {
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("pass").value;
+        const city = document.getElementById("city").value;
+        const age = document.getElementById("age").value;
+        const gender = document.getElementById("gender").value;
+        console.log(username, email, pass, city, age, gender);
+        let obj = {
+            username, email, password, city, age, gender
+        }
+        try {
+            const res = await fetch('http://localhost:4500/users/signup', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(obj)
+            });
+            const data = await res.json();
+            console.log(data);
+            if (data.msg === 'User signup successfully') {
+                window.location.href = './login.html'
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+
+    }
+</script>
+
+</html>
